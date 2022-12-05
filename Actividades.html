@@ -1,0 +1,250 @@
+
+M06 UF1Q5. Exercicis per practicar objectes
+joan quintana
+•
+28 d’oct. 2021
+10/10
+10 punts de 10 possibles
+Data de venciment: 4 de nov. 2021 23:59
+http://wiki.joanillo.org/index.php/M06_UF1Q5._Exercicis_per_practicar_objectes
+Comentaris de la classe
+El teu treball
+Puntuada
+
+Actividad5.docx
+Word
+
+Actividades.html
+HTML
+1 comentari privat
+
+joan quintana15 de nov. 2021
+Se'm fa difícil veure amb el docx el contingut del fitxer. Suposo que hi ha les evidències de què has executat el codi en la teva màquina.
+
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Actividades M06 UH1Q5</title>
+	</head>
+	<body>
+		<p>Actividad 1</p>
+		<script>
+			function _keys(obj){
+				if (!isObject(obj)) return [];
+					if (Object.keys) return Object.keys(obj);
+						var keys = [];
+					for (var key in obj) if (_.has(obj, key)) keys.push(key);
+						return keys;
+				  }
+				function isObject(obj) {
+					var type = typeof obj;
+					return type === 'function' || type === 'object' && !!obj;
+				  }
+				document.write(_keys({red: "#FF0000", green: "#00FF00", white: "#FFFFFF"}));
+				console.log(_keys({red: "#FF0000", green: "#00FF00", white: "#FFFFFF"}));
+		</script>
+		
+		<p>Actividad 2</p>
+		<script>
+			var asignatura = {
+				name : "Mates", 
+				sclass : "VI", 
+				rollno : 12  };
+				console.log(asignatura);
+				delete asignatura.rollno;
+				console.log(asignatura);	
+		</script>
+		
+		<p>Actividad 3</p>
+		<script>
+		Object.objsize=function(Myobj){
+			var osize = 0, key;
+			for(key in Myobj){
+			if(Myobj.hasOwnProperty(key))osize++;
+			}
+			return osize;
+		};
+		var student = {
+			name : "", sclass : "", rollno : 12 };
+		
+			var objsize = Object.objsize(student);
+			document.write( "La Longitud es de: " +objsize);
+			console.log( "Longitud  " +objsize);
+		</script>
+		
+		<p>Actividad 4</p>
+		<script>
+			var libreria=[{
+				author: 'J. K. Rowling',
+				title: 'Harry Potter Series',
+				readingStatus: true
+			},
+			{
+				author: 'Antoine De Saint-Exupéry',
+				title: 'El principito',
+				readingStatus: true
+			},
+			{
+				author: 'Dan Brown',
+				title:  'El código Da Vinci', 
+				readingStatus: false
+			}];
+			for (var i = 0; i < libreria.length; i++){
+				var libro = "'" + libreria[i].title + "'" + ' by ' + libreria[i].author + ".";
+			if (libreria[i].readingStatus) {
+				console.log("libro " +libro);
+				document.write("</br> Libro  " +libro);
+			}else{
+				console.log("libro: " +libro);
+				document.write("</br> Libro: " +libro);
+			}
+		}
+		</script>
+		
+		<p>Actividad 5</p>
+			<script>
+				function Cilindro(cil_radio,cil_diametro){
+					this.cil_diametro = cil_diametro;
+					this.cil_radio = cil_radio;
+				}
+			Cilindro.prototype.Volumen = function(){
+				var radio = this.cil_diametro /2;
+				return this.cil_radio * Math.PI * radio * radio;
+			};
+			var cil = new Cilindro (10,2);
+			console.log('volumen Calculado =', +cil.Volumen().toFixed(4));
+			document.write('Volumen Calculado = ' +cil.Volumen().toFixed(4));
+			</script>
+		
+		<p>Actividad 6</p>
+			<script>
+				Array.prototype.bubbleSort_algo = function(){
+					var color_contorn = false;
+				while (!color_contorn){
+					color_contorn = true;
+					for(var n = 0; n < this.length - 1; n++){
+						if(this[n] > this[n+1]){
+							var x = this[n+1];
+							this[n+1] = this[n];
+							this[n] = x;
+							color_contorn = false;
+						}
+					}
+				}	
+					return this;
+			};
+			console.log([4,7,9,3,4,5-11].bubbleSort_algo());
+			document.write([4,7,9,3,4,5-11].bubbleSort_algo());
+			</script>
+			
+		<p>Actividad 7</p>
+			<script>
+				String.prototype.sub_String = function(){
+					var subset = [];
+				for (var m = 0; m < this.length; m++){
+					for (var n = m+1; n<this.length+1; n++){
+						subset.push(this.slice(m,n));
+					}
+				}
+					return subset;
+			};
+			console.log("coco".sub_String());
+			document.write("coco".sub_String());
+			
+			</script>
+			
+		<p>Actividad 8</p>
+			<script>
+				/*function my_Clock(){
+				  this.cur_date = new Date();
+				  this.hours = this.cur_date.getHours();
+				  this.minutos = this.cur_date.getMinutes();
+				  this.segundos = this.cur_date.getSeconds();
+				}
+				my_Clock.prototype.run = function (){
+					setInterval(this.update.bind(this), 1000);
+				};
+				my_Clock.prototype.update = function (){
+					this.updateTime(1);
+					console.log(this.houras + ":" + this.minutos + ":" + this.segundos);
+					document.write(this.horas+ ":" +this.minutos + ":" + this.segundos);
+				};
+					my_Clock.prototype.updateTime = function (secs) {
+						this.segundos+= secs;
+					if (this.segundos >= 60){
+						this.minutos++;
+						this.segundos= 0;
+					}
+					if (this.minutes >= 60){
+						this.horas++;
+						this.minutos=0;
+					}
+					if (this.horas >= 24){
+						this.horas = 0;
+					}
+				};
+			var clock = new my_Clock();
+			  clock.run();*/
+			
+			</script>
+			
+		<p>Actividad 9</p>
+			<script>
+				function circle(radius){
+					this.radius = radius; // area method
+					this.area = function () 
+				{
+					return Math.PI * this.radius * this.radius;
+				};
+					// perimeter method
+				this.perimeter = function(){
+					return 2*Math.PI*this.radius;
+				};
+			}
+				var c = new circle(3);
+				console.log('Area =', c.area().toFixed(2));
+				console.log('Perimetero =', c.perimeter().toFixed(2));
+				document.write('Area =' +c.area().toFixed(2));
+				document.write('</br> Perimetero =' +c.perimeter().toFixed(2));
+			</script>
+			
+		<p>Actividad 10</p>
+			<script>
+			var libreriaa = [{
+			   title: 'Harry Potter Series ',
+			   author: 'J. K. Rowling',
+			   libraryID: 1254
+			},
+			{
+			   title: 'El principito',
+			   author: 'Antoine De Saint-Exupéry',
+			   libraryID: 4264
+			},
+			{
+			   title: 'El código Da Vinci',
+			   author: 'Dan Brown',
+			   libraryID: 3245
+			}];
+
+			var sort_by = function(field_name, reverse, initial){
+
+			var key = initial ?
+			function(x){
+				return initial(x[field_name]);
+            }:
+			function(x){
+				return x[field_name];
+            };
+				reverse = !reverse ? 1 : -1;
+			return function (x, y) {
+			return x = key(x), y = key(y), reverse * ((x > y) - (y > x));
+			};
+	};
+	var newobj = libreriaa.sort(sort_by('libraryID', true, parseInt));
+
+	console.log(newobj);
+	document.write('Libros: ' +newobj);		
+			</script>
+			
+	</body>
+</html>

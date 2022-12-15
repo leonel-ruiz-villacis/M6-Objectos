@@ -1,0 +1,106 @@
+<html>
+<h1>Reloj</h1>
+<title>Reloj</title>
+<body>
+<div name="reloj" id="reloj"></div>
+<div name="crono" id="crono"></div>
+<div name="reloj2" id="reloj2"></div>
+<script>
+function Clock(hora=new Date().getHours(), minut=new Date().getMinutes(), segon = new Date().getSeconds()) {
+   this.hora = hora;
+   this.minut = minut;
+   this.segon = segon;
+   this.sentit = true 
+   this.estat= false;
+   this.formata = function() {
+      let cad_segon = this.segon+"";
+	  if(cad_segon.length<2){
+		cad_segon="0"+cad_segon;
+	  }
+      let cad_minut = this.minut+"";
+	  if(cad_minut.length<2){
+		cad_minut="0"+cad_minut;
+	  }
+      let cad_hora = this.hora+"";   
+      return cad_hora + ':' + cad_minut + ':' + cad_segon;
+   }
+   this.arrenca = function() { 
+		if (this.estat==false) {
+		this.estat=true;
+		this.ref = setInterval(() => {
+			
+			if (this.sentit){
+				this.segon++;
+				if (this.segon==60) {
+					this.segon = 0;
+					this.minut += 1;
+					if (this.minut == 60) {
+						this.minut = 0;
+					this.hour += 1;
+					}
+				}
+			}
+			else{
+				this.segon--;
+				if (this.segon<0){
+					this.segon=59;
+					this.minut--;
+					if(this.minut<0){
+						this.minut=59;
+						this.hora--;
+					}
+				}
+			}
+		}, 1000);
+	};
+	}
+   this.atura = function() {
+      if (this.estat==true) this.estat=false;
+      clearInterval(this.ref);
+   };
+   this.reset=function(){
+		this.segon=0;
+		this.minut=0;
+		this.hora=0;
+   };
+   this.set=function(h,m,s){
+		this.segon=s;
+		this.minut=m;
+		this.hora=h;
+   };
+}
+var reloj_1=new Clock();
+var hora_start=reloj_1.segon;
+reloj_1.arrenca();
+var cronometro=new Clock(0,0,0);
+
+var reloj_2=new Clock(0,0,0);
+reloj_2.set(0,5,0);
+reloj_2.sentit=false;
+reloj_2.arrenca();
+var s1=setInterval(() =>{
+	document.getElementById("reloj").innerHTML=reloj_1.formata();
+	if (reloj_1.segon-hora_start==10){
+		cronometro.arrenca();
+	}
+},1000)
+var s2=setInterval(() =>{
+	document.getElementById("crono").innerHTML=cronometro.formata();
+},1000)
+var s3=setInterval(() =>{
+	if (cronometro.minut%2!=0){
+		reloj_2.arrenca();
+	}
+	if (cronometro.minut%2==0){
+		reloj_2.atura();
+	}
+	document.getElementById("reloj2").innerHTML=reloj_2.formata();
+	if(reloj_2.segon<=1 && reloj_2.minut<=0 && reloj_2.hora<=0){
+		reloj_2.reset();
+		document.getElementById("reloj2").innerHTML=reloj_2.formata();
+		clearInterval(s3);
+	}
+},1000)
+</script>
+</body>
+</html>
